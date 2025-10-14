@@ -13,6 +13,7 @@ import View.UNOCard;
  * This Class contains standard 108-Card stack
  */
 public class CardDeck implements GameConstants {
+    private static final int WILD_CARD_COUNT = 4;
 	private LinkedList<UNOCard> UNOcards;
 	
 	public CardDeck(){
@@ -59,7 +60,7 @@ public class CardDeck implements GameConstants {
      */
     private void addWildCards() {
         for (String type : WildTypes) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < WILD_CARD_COUNT; i++) {
                 UNOcards.add(new WildCard(type));
             }
         }
