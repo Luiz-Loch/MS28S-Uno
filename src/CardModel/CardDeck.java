@@ -21,34 +21,49 @@ public class CardDeck implements GameConstants {
 		addCards();
 		addCardListener(CARDLISTENER);
 	}
-		
-	//Create 108 cards for this CardDeck
-	private void addCards() {
-		for(Color color:UNO_COLORS){
-			
-			//Create 76 NumberCards --> doubles except 0s.
-			for(int num : UNO_NUMBERS){
-				int i=0;
-				do{
-					UNOcards.add(new NumberCard(color, Integer.toString(num)));
-					i++;
-				}while(num!=0 && i<2);
-			}
-			
-			//Create 24 ActionCards --> everything twice
-			for(String type : ActionTypes){
-				for(int i=0;i<2;i++)
-					UNOcards.add(new ActionCard(color, type));
-			}					
-		}		
-		
-		for(String type : WildTypes){
-			for(int i=0;i<4;i++){
-				UNOcards.add(new WildCard(type));
-			}
-		}
-		
-	}
+
+    //Create 108 cards for this CardDeck
+    private void addCards() {
+        for (Color color : UNO_COLORS) {
+            addNumberCards(color);
+            addActionCards(color);
+        }
+        addWildCards();
+    }
+    /**
+     * Create 76 NumberCards --> doubles except 0s
+     */
+    private void addNumberCards(Color color) {
+        for (int num : UNO_NUMBERS) {
+            int i = 0;
+            do {
+                UNOcards.add(new NumberCard(color, Integer.toString(num)));
+                i++;
+            } while (num != 0 && i < 2);
+        }
+    }
+
+    /**
+     * Create 24 ActionCards --> everything twice
+     */
+    private void addActionCards(Color color) {
+        for (String type : ActionTypes) {
+            for (int i = 0; i < 2; i++) {
+                UNOcards.add(new ActionCard(color, type));
+            }
+        }
+    }
+
+    /**
+     * Create 8 WildTypes --> 4 of each
+     */
+    private void addWildCards() {
+        for (String type : WildTypes) {
+            for (int i = 0; i < 4; i++) {
+                UNOcards.add(new WildCard(type));
+            }
+        }
+    }
 	
 	//Cards have MouseListener
 	public void addCardListener(MyCardListener listener){
