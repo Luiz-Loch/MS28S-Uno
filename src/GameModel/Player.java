@@ -69,7 +69,7 @@ public class Player {
 	}
 	
 	public boolean hasCards(){
-		return (myCards.isEmpty()) ? false : true;
+		return !myCards.isEmpty();
 	}
 	
 	public boolean getSaidUNO(){
