@@ -3,6 +3,7 @@ package GameModel;
 Code created by Josh Braza 
 */
 import java.util.LinkedList;
+import java.util.List;
 
 import View.UNOCard;
 
@@ -11,7 +12,7 @@ public class Player {
 	private String name = null;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
-	private LinkedList<UNOCard> myCards;
+	private List<UNOCard> myCards;
 	
 	private int playedCards = 0;
 	
@@ -36,7 +37,7 @@ public class Player {
 		myCards.add(card);
 	}
 	
-	public LinkedList<UNOCard> getAllCards(){
+	public List<UNOCard> getAllCards(){
 		return myCards;
 	}
 	
@@ -69,7 +70,7 @@ public class Player {
 	}
 	
 	public boolean hasCards(){
-		return (myCards.isEmpty()) ? false : true;
+		return !myCards.isEmpty();
 	}
 	
 	public boolean getSaidUNO(){
