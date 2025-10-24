@@ -17,8 +17,6 @@ import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
-import ServerController.Observer;
-
 public class Server implements GameConstants {
 	private Game game;
 	private Session session;
