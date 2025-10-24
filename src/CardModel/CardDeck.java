@@ -14,14 +14,14 @@ import View.UNOCard;
  */
 public class CardDeck implements GameConstants {
     private static final int WILD_CARD_COUNT = 4;
-	private LinkedList<UNOCard> UNOcards;
-	
-	public CardDeck(){
-		UNOcards = new LinkedList<UNOCard>();
-		
-		addCards();
-		addCardListener(CARDLISTENER);
-	}
+    private LinkedList<UNOCard> UNOcards;
+
+    public CardDeck(){
+        UNOcards = new LinkedList<UNOCard>();
+
+        addCards();
+        addCardListener(CARDLISTENER);
+    }
 
     //Create 108 cards for this CardDeck
     private void addCards() {
@@ -38,7 +38,7 @@ public class CardDeck implements GameConstants {
         for (int num : UNO_NUMBERS) {
             int i = 0;
             do {
-                UNOcards.add(new NumberCard(color, Integer.toString(num)));
+                UNOcards.add(new NumberCard(CardSpec.of(color, NUMBERS, Integer.toString(num))));
                 i++;
             } while (num != 0 && i < 2);
         }
@@ -50,7 +50,8 @@ public class CardDeck implements GameConstants {
     private void addActionCards(Color color) {
         for (String type : ActionTypes) {
             for (int i = 0; i < 2; i++) {
-                UNOcards.add(new ActionCard(color, type));
+                // 'type' aqui é o cardValue (String), ACTION é a constante int do tipo
+                UNOcards.add(new ActionCard(CardSpec.of(color, ACTION, type)));
             }
         }
     }
@@ -61,18 +62,19 @@ public class CardDeck implements GameConstants {
     private void addWildCards() {
         for (String type : WildTypes) {
             for (int i = 0; i < WILD_CARD_COUNT; i++) {
-                UNOcards.add(new WildCard(type));
+                // Wild cards usam cor BLACK e tipo WILD
+                UNOcards.add(new WildCard(CardSpec.of(BLACK, WILD, type)));
             }
         }
     }
-	
-	//Cards have MouseListener
-	public void addCardListener(MyCardListener listener){
-		for(UNOCard card: UNOcards)
-		card.addMouseListener(listener);
-	}
-	
-	public LinkedList<UNOCard> getCards(){
-		return UNOcards;
-	}	
+
+    //Cards have MouseListener
+    public void addCardListener(MyCardListener listener){
+        for(UNOCard card: UNOcards)
+            card.addMouseListener(listener);
+    }
+
+    public LinkedList<UNOCard> getCards(){
+        return UNOcards;
+    }   
 }

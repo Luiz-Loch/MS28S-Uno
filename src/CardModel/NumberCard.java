@@ -1,19 +1,19 @@
 package CardModel;
-/*
-Code created by Josh Braza 
-*/
-import java.awt.Color;
 
+/*
+Code created by Josh Braza
+*/
 import View.UNOCard;
 
 @SuppressWarnings("serial")
 public class NumberCard extends UNOCard {
 
-	public NumberCard(){
-	}
-	
-	public NumberCard(Color cardColor, String cardValue){
-		super(cardColor, NUMBERS, cardValue);		
-	}
+    public NumberCard(){
+    }
+
+    // agora recebe um CardSpec
+    public NumberCard(CardSpec spec){
+        super(spec);
+    }
 
 }

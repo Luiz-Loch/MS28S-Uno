@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import CardModel.CardSpec;
 import Interfaces.CardInterface;
 import Interfaces.UNOConstants_Original;
 
@@ -38,10 +39,10 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		this.repaint();
 	}
 	
-	public UNOCard(Color cardColor, int cardType, String cardValue){
-		this.cardColor = cardColor;
-		this.type = cardType;
-		this.value = cardValue;
+	public UNOCard(CardSpec spec){
+		this.cardColor = spec.getColor();
+		this.type = spec.getType();
+		this.value = spec.getValue();
 		this.showValue = true;
 		
 		this.setPreferredSize(CARDSIZE);
