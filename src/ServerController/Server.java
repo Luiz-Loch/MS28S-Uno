@@ -86,9 +86,8 @@ public class Server implements GameConstants {
 
         // First Card
         UNOCard firstCard = game.getCard();
-        // garante que a primeira carta não seja wild
-        while (firstCard.getValue().equals(W_COLORPICKER) ||
-                firstCard.getValue().equals(W_DRAW4PLUS)) {
+        // garante que a primeira carta não seja wild (usa helper)
+        while (isWildValue(firstCard)) {
             firstCard = game.getCard();
         }
 
@@ -203,16 +202,20 @@ public class Server implements GameConstants {
     public boolean isValidMove(UNOCard playedCard) {
         UNOCard topCard = peekTopCard();
 
-        if (playedCard.getColor().equals(topCard.getColor())
-                || playedCard.getValue().equals(topCard.getValue())) {
+        // color or value matches (null-safe) via helper
+        if (cardsMatch(playedCard, topCard)) {
             return true;
         }
 
-        else if (playedCard.getType() == WILD) {
+        // played card is wild
+        if (playedCard.getType() == WILD) {
             return true;
-        } else if (topCard.getType() == WILD) {
+        }
+
+        // top card is wild and chosen color matches
+        if (topCard.getType() == WILD) {
             Color color = ((WildCard) topCard).getWildColor();
-            if (color.equals(playedCard.getColor()))
+            if (color != null && color.equals(playedCard.getColor()))
                 return true;
         }
         return false;
@@ -294,5 +297,27 @@ public class Server implements GameConstants {
         } else {
             System.exit(1);
         }
+    }
+
+    // --- Helpers extraídos para esconder delegações e comparar cartas ---
+
+    /** Retorna true se card tem value igual a W_COLORPICKER ou W_DRAW4PLUS (null-safe) */
+    private boolean isWildValue(UNOCard card) {
+        if (card == null) return false;
+        String v = card.getValue();
+        return v != null && (v.equals(W_COLORPICKER) || v.equals(W_DRAW4PLUS));
+    }
+
+    /** Compara cor/valor entre duas cartas (null-safe) */
+    private boolean cardsMatch(UNOCard a, UNOCard b) {
+        if (a == null || b == null) return false;
+        Color ca = a.getColor();
+        Color cb = b.getColor();
+        String va = a.getValue();
+        String vb = b.getValue();
+
+        boolean colorMatch = (ca != null && cb != null && ca.equals(cb));
+        boolean valueMatch = (va != null && vb != null && va.equals(vb));
+        return colorMatch || valueMatch;
     }
 }

@@ -5,7 +5,6 @@ Code created by Josh Braza
 */
 
 import View.UNOCard;
-import java.awt.Color;
 
 public class ActionCard extends UNOCard {
 
