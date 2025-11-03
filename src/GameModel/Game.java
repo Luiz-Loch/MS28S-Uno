@@ -209,15 +209,15 @@ public class Game implements GameConstants {
 				UNOCard newCard = getCard();
 				p.obtainCard(newCard);
 				canPlay = canPlay(topCard, newCard);
-
-				if(pc.isMyTurn() && canPlay){
-					playPC(topCard);
-					canPlay = true;
-				}
 			}
 		}
+        if (pc != null && pc.isMyTurn() && canPlay){
+                playPC(topCard);
+                canPlay = true;
+            }
 
-		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
+
+        playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
 
 		if (!canPlay)
 			switchTurn();

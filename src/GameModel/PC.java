@@ -82,4 +82,12 @@ public class PC extends Player implements GameConstants {
 		
 		return false;
 	}
+
+    @Override
+    public void toggleTurn(){
+        isMyTurn = !isMyTurn;
+        for(UNOCard uno : myCards) {
+            uno.setShowValue(false);
+        }
+    }
 }
