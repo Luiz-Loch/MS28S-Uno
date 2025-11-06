@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import CardModel.WildCard;
 import GameModel.Game;
@@ -244,6 +245,15 @@ public class Server implements GameConstants {
         game.switchTurn();
         clickedCard.setShowValue(true);
         session.updatePanel(clickedCard);
+
+        // Se houver acumulador de +2 ativo, sobrescreve o texto do infoPanel
+        // PARA GARANTIR VISUALIZAÇÃO (evita que game.whoseTurn() o sobrescreva)
+        if (draw2Accumulator > 0) {
+            infoPanel.updateText("+" + draw2Accumulator + " acumulado");
+            infoPanel.repaint();
+            SwingUtilities.invokeLater(() -> { if (session != null) session.refreshPanel(); });
+        }
+
         checkResults();
     }
 
