@@ -16,6 +16,7 @@ import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
+
 public class Server implements GameConstants {
     private Game game;
     private Session session;
@@ -23,6 +24,9 @@ public class Server implements GameConstants {
     public boolean canPlay;
     private int mode;
     private Observer observer;
+    
+    // Variável para armazenar a escolha da Regra do 9
+    private boolean ruleOfNineEnabled;
 
     // Prompter injetável para isolar dependência de UI (JOptionPane)
     private final Prompter prompter;
@@ -33,6 +37,11 @@ public class Server implements GameConstants {
         int chooseGameMode(Object[] options, Object defaultOption);
         String chooseWildColor(Object[] options, Object defaultOption);
         int confirmNewRound(Object[] options, Object defaultOption);
+         
+        // Novo método para perguntar sobre a Regra do 9
+        int chooseRuleOfNine(Object[] options, Object defaultOption);
+        // Novo método para mostrar notificações (como a da Regra do 9)
+        void showNotification(String title, String message);
     }
 
     // Implementação padrão usando JOptionPane (mantém comportamento atual)
@@ -66,6 +75,33 @@ public class Server implements GameConstants {
                     null, options, defaultOption);
             return n;
         }
+
+        /**
+         * Implementação da pergunta sobre a Regra do 9
+         */
+        @Override
+        public int chooseRuleOfNine(Object[] options, Object defaultOption) {
+            int n = JOptionPane.showOptionDialog(null,
+                    "Deseja jogar com a Regra do 9?",
+                    "Regras Opcionais",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, options, defaultOption);
+            
+            // Se "Cancelar" ou fechar a janela
+            if (n == 2 || n < 0) {
+                System.exit(1);
+            }
+            return n; // Retorna 0 (Sim) ou 1 (Não)
+        }
+
+        /**
+         * Implementação da notificação visual
+         */
+        @Override
+        public void showNotification(String title, String message) {
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }
 
     // Construtor padrão (usa DefaultPrompter -> mantém comportamento com UI)
@@ -77,6 +113,11 @@ public class Server implements GameConstants {
     public Server(Prompter prompter) {
         this.prompter = prompter;
         this.mode = requestMode();
+        
+        // Pergunta sobre a Regra do 9 logo após escolher o modo
+        this.ruleOfNineEnabled = requestRuleOfNine();
+
+        
         startGame();
     }
 
@@ -107,6 +148,18 @@ public class Server implements GameConstants {
         int choice = prompter.chooseGameMode(options, options[0]);
         // DefaultPrompter já lida com cancel; aqui convertemos índice para GAMEMODES
         return GAMEMODES[choice];
+    }
+    
+
+    /**
+     * Pergunta ao usuário se a Regra do 9 deve ser ativada.
+     * @return true se "Sim" for selecionado, false caso contrário.
+     */
+    private boolean requestRuleOfNine() {
+        Object[] options = { "Sim", "Não", "Cancelar" };
+        int choice = prompter.chooseRuleOfNine(options, options[0]);
+        // choice == 0 é "Sim (Ativar)"
+        return (choice == 0);
     }
 
     // custom settings for the first card
@@ -149,6 +202,17 @@ public class Server implements GameConstants {
                         cardConfirmed = performWild((WildCard) clickedCard);
                         break;
                     default:
+                        
+                        // Verifica se a regra está ativa E se a carta é um "9"
+                        if (ruleOfNineEnabled && clickedCard.getValue().equals("9")) {
+                            // Mostra a notificação visual usando o Prompter
+                            prompter.showNotification("Regra do 9!", "REGRA DO 9! O oponente compra 3 cartas!");
+                            // Aplica a penalidade
+                            game.drawPlus(3);
+                            // Pula o turno do oponente
+                            game.switchTurn();
+                        }
+                        
                         break;
                 }
                 if(cardConfirmed) {
