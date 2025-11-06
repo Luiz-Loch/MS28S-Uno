@@ -20,6 +20,9 @@
 *.tar.gz
 *.rar
 
+# keep gradle wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
+
 # Note: jars are ignored by default (you can allow a specific jar below if you want)
 *.jar
 
@@ -41,3 +44,4 @@ Thumbs.db
 # === Misc ===
 .mtj.tmp/
 bin/
+"@ | Set-Content .gitignore -Encoding UTF8
