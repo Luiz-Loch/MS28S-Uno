@@ -28,6 +28,9 @@ public class Server implements GameConstants {
     // Variável para armazenar a escolha da Regra do 9
     private boolean ruleOfNineEnabled;
 
+    // Acumulador para empilhamento de +2
+    private int draw2Accumulator = 0;
+
     // Prompter injetável para isolar dependência de UI (JOptionPane)
     private final Prompter prompter;
     private final Random random = new Random();
@@ -237,6 +240,7 @@ public class Server implements GameConstants {
         playedCards.add(clickedCard);
         game.removePlayedCard(clickedCard);
 
+        // Ao jogar uma carta, passa o turno (empilhamentos de +2 são tratados em performAction)
         game.switchTurn();
         clickedCard.setShowValue(true);
         session.updatePanel(clickedCard);
@@ -267,6 +271,11 @@ public class Server implements GameConstants {
     public boolean isValidMove(UNOCard playedCard) {
         UNOCard topCard = peekTopCard();
 
+        // Se há acumulador de +2 ativo, apenas a carta +2 é permitida (CA-EMP+2-06)
+        if (draw2Accumulator > 0) {
+            return playedCard.getValue().equals(DRAW2PLUS);
+        }
+
         if (playedCard.getColor().equals(topCard.getColor())
                 || playedCard.getValue().equals(topCard.getValue())) {
             return true;
@@ -284,7 +293,18 @@ public class Server implements GameConstants {
 
     // ActionCards
     private void performAction(UNOCard actionCard) {
-        // Draw2PLUS
+        // Draw2PLUS -> empilhar em vez de executar imediatamente
+        if (actionCard.getValue().equals(DRAW2PLUS)) {
+            // incrementa acumulador e avisa UI (CA-EMP+2-01 / CA-EMP+2-05)
+            draw2Accumulator += 2;
+            infoPanel.updateText("+" + draw2Accumulator + " acumulado");
+            infoPanel.repaint();
+            // não chamar game.drawPlus aqui; o próximo jogador pode empilhar novamente
+            // o turno será passado em playClickedCard()
+            return;
+        }
+
+        // Outros ACTIONS: comportamento original (ex.: SKIP / REVERSE)
         if (actionCard.getValue().equals(DRAW2PLUS))
             game.drawPlus(2);
 
@@ -321,6 +341,35 @@ public class Server implements GameConstants {
     }
 
     public void requestCard() {
+        // Se houver acumulador de +2, o jogador que pediu carta deve comprar o acumulado
+        if (draw2Accumulator > 0) {
+            // entrega as cartas para o jogador atual (CA-EMP+2-03 / CA-EMP+2-04)
+            for (Player p : game.getPlayers()) {
+                if (p.isMyTurn()) {
+                    for (int i = 0; i < draw2Accumulator; i++) {
+                        p.obtainCard(game.getCard());
+                    }
+                    break;
+                }
+            }
+
+            draw2Accumulator = 0;
+            infoPanel.updateText("Game Started");
+            session.refreshPanel();
+
+            // após comprar, passa o turno para o próximo jogador
+            game.switchTurn();
+
+            // atualiza UI e, se for PC, executa movimento
+            session.refreshPanel();
+            if(mode==vsPC && canPlay){
+                if(game.isPCsTurn())
+                    game.playPC(peekTopCard());
+            }
+            return;
+        }
+
+        // comportamento original quando não há acumulador
         game.drawCard(peekTopCard());
 
         if(mode==vsPC && canPlay){
