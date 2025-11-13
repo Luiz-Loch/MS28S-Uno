@@ -1,4 +1,4 @@
-package ServerController;
+package main.java.ServerController;
 
 import java.lang.Runnable;
 

@@ -1,10 +1,10 @@
-package CardModel;
+package main.java.CardModel;
 /*
 Code created by Josh Braza 
 */
 import java.awt.Color;
 
-import View.UNOCard;
+import main.java.View.UNOCard;
 
 @SuppressWarnings("serial")
 public class WildCard extends UNOCard {

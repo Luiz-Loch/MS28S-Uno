@@ -1,4 +1,4 @@
-package GameModel;
+package main.java.GameModel;
 /*
 Code created by Josh Braza 
 */
@@ -6,9 +6,9 @@ Code created by Josh Braza
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import CardModel.WildCard;
-import Interfaces.GameConstants;
-import View.UNOCard;
+import main.java.CardModel.WildCard;
+import main.java.Interfaces.GameConstants;
+import main.java.View.UNOCard;
 
 public class PC extends Player implements GameConstants {
 
@@ -82,4 +82,12 @@ public class PC extends Player implements GameConstants {
 		
 		return false;
 	}
+
+    @Override
+    public void toggleTurn(){
+        isMyTurn = !isMyTurn;
+        for(UNOCard uno : myCards) {
+            uno.setShowValue(false);
+        }
+    }
 }

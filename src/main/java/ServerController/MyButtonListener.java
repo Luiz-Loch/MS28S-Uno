@@ -1,4 +1,4 @@
-package ServerController;
+package main.java.ServerController;
 /*
 Code created by Josh Braza 
 */

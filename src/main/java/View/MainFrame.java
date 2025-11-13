@@ -1,14 +1,14 @@
-package View;
+package main.java.View;
 /*
 Code created by Josh Braza 
 */
 
 import javax.swing.JFrame;
 
-import Interfaces.GameConstants;
-import ServerController.Server;
+import main.java.Interfaces.GameConstants;
+import main.java.ServerController.Server;
 
-import ServerController.Observer;
+import main.java.ServerController.Observer;
 
 
 @SuppressWarnings("serial")

@@ -1,4 +1,4 @@
-package View;
+package main.java.View;
 /*
 Code created by Josh Braza 
 */
@@ -9,7 +9,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import GameModel.Game;
+import main.java.GameModel.Game;
 
 @SuppressWarnings("serial")
 public class Session extends JPanel {

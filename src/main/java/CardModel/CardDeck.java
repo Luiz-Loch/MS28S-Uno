@@ -1,13 +1,13 @@
-package CardModel;
+package main.java.CardModel;
 /*
 Code created by Josh Braza 
 */
 import java.awt.Color;
 import java.util.LinkedList;
 
-import Interfaces.GameConstants;
-import ServerController.MyCardListener;
-import View.UNOCard;
+import main.java.Interfaces.GameConstants;
+import main.java.ServerController.MyCardListener;
+import main.java.View.UNOCard;
 
 /**
  * This Class contains standard 108-Card stack

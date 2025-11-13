@@ -1,4 +1,4 @@
-package GameModel;
+package main.java.GameModel;
 /*
 Code created by Josh Braza 
 */
@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 
-import CardModel.CardDeck;
-import Interfaces.GameConstants;
-import View.UNOCard;
+import main.java.CardModel.CardDeck;
+import main.java.Interfaces.GameConstants;
+import main.java.View.UNOCard;
 
 
 public class Dealer implements GameConstants {

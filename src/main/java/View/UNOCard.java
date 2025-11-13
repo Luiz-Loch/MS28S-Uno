@@ -1,4 +1,4 @@
-package View;
+package main.java.View;
 /*
 Code created by Josh Braza 
 */
@@ -16,8 +16,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import Interfaces.CardInterface;
-import Interfaces.UNOConstants_Original;
+import main.java.Interfaces.CardInterface;
+import main.java.Interfaces.UNOConstants_Original;
 
 @SuppressWarnings("serial")
 public abstract class UNOCard extends JPanel implements CardInterface, UNOConstants_Original {

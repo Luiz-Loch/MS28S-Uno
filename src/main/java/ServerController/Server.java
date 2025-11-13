@@ -1,4 +1,4 @@
-package ServerController;
+package main.java.ServerController;
 /*
 Code created by Josh Braza
 */
@@ -10,12 +10,12 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import CardModel.WildCard;
-import GameModel.Game;
-import GameModel.Player;
-import Interfaces.GameConstants;
-import View.Session;
-import View.UNOCard;
+import main.java.CardModel.WildCard;
+import main.java.GameModel.Game;
+import main.java.GameModel.Player;
+import main.java.Interfaces.GameConstants;
+import main.java.View.Session;
+import main.java.View.UNOCard;
 
 
 public class Server implements GameConstants {

@@ -1,4 +1,4 @@
-package View;
+package main.java.View;
 /*
 Code created by Josh Braza 
 */
@@ -16,8 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import GameModel.Player;
-import Interfaces.GameConstants;
+import main.java.GameModel.Player;
+import main.java.Interfaces.GameConstants;
 
 @SuppressWarnings("serial")
 public class PlayerPanel extends JPanel implements GameConstants {
