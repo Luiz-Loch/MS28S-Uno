@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.luizloch'      // ajuste se quiser
+version = '1.0-SNAPSHOT'
+
+java {
+    // troque para VERSION_11 se você usa JDK 11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+application {
+    // como sua classe Main está no default package, o nome é apenas 'Main'
+    mainClass = 'Main'
+    // se seu Gradle reclamar (versões antigas), use:
+    // mainClassName = 'Main'
+}
+
+test {
+    useJUnitPlatform()
+}

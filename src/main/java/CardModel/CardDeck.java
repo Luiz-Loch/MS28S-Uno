@@ -1,0 +1,78 @@
+package main.java.CardModel;
+/*
+Code created by Josh Braza 
+*/
+import java.awt.Color;
+import java.util.LinkedList;
+
+import main.java.Interfaces.GameConstants;
+import main.java.ServerController.MyCardListener;
+import main.java.View.UNOCard;
+
+/**
+ * This Class contains standard 108-Card stack
+ */
+public class CardDeck implements GameConstants {
+    private static final int WILD_CARD_COUNT = 4;
+	private LinkedList<UNOCard> UNOcards;
+	
+	public CardDeck(){
+		UNOcards = new LinkedList<UNOCard>();
+		
+		addCards();
+		addCardListener(CARDLISTENER);
+	}
+
+    //Create 108 cards for this CardDeck
+    private void addCards() {
+        for (Color color : UNO_COLORS) {
+            addNumberCards(color);
+            addActionCards(color);
+        }
+        addWildCards();
+    }
+    /**
+     * Create 76 NumberCards --> doubles except 0s
+     */
+    private void addNumberCards(Color color) {
+        for (int num : UNO_NUMBERS) {
+            int i = 0;
+            do {
+                UNOcards.add(new NumberCard(color, Integer.toString(num)));
+                i++;
+            } while (num != 0 && i < 2);
+        }
+    }
+
+    /**
+     * Create 24 ActionCards --> everything twice
+     */
+    private void addActionCards(Color color) {
+        for (String type : ActionTypes) {
+            for (int i = 0; i < 2; i++) {
+                UNOcards.add(new ActionCard(color, type));
+            }
+        }
+    }
+
+    /**
+     * Create 8 WildTypes --> 4 of each
+     */
+    private void addWildCards() {
+        for (String type : WildTypes) {
+            for (int i = 0; i < WILD_CARD_COUNT; i++) {
+                UNOcards.add(new WildCard(type));
+            }
+        }
+    }
+	
+	//Cards have MouseListener
+	public void addCardListener(MyCardListener listener){
+		for(UNOCard card: UNOcards)
+		card.addMouseListener(listener);
+	}
+	
+	public LinkedList<UNOCard> getCards(){
+		return UNOcards;
+	}	
+}
