@@ -1,4 +1,4 @@
-package GameModel;
+package main.java.GameModel;
 /*
 Code created by Josh Braza
 */
@@ -8,9 +8,9 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import CardModel.*;
-import Interfaces.GameConstants;
-import View.UNOCard;
+import main.java.CardModel.*;
+import main.java.Interfaces.GameConstants;
+import main.java.View.UNOCard;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class Game implements GameConstants {
         Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
         Player player2 = new Player(name2);
 
-        playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+        playBackgroundMusic("src/main/java/Sounds/Run-Amok_chosic.com_.wav");
 
         player2.toggleTurn();				//Initially, player2's turn
 
@@ -138,7 +138,7 @@ public class Game implements GameConstants {
             @Override
             public void run() {
                 try {
-                    File audioFile = new File("src/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
+                    File audioFile = new File("src/main/java/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
                     if (!audioFile.exists()) {
                         throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFile.getPath());
                     }
@@ -217,7 +217,7 @@ public class Game implements GameConstants {
             }
         }
 
-        playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
+        playAudio("src/main/java/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
 
         if (!canPlay)
             switchTurn();
@@ -358,7 +358,7 @@ public class Game implements GameConstants {
             }
         }
         // reproduz som de pescar
-        playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
+        playAudio("src/main/java/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
         // atualiza painel de turno/detalhes
         whoseTurn();
     }

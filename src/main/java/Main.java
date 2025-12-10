@@ -1,3 +1,4 @@
+package main.java;
 /*
 Code created by Josh Braza 
 */
@@ -5,9 +6,9 @@ Code created by Josh Braza
 import javax.swing.JFrame;
 
 import javax.swing.SwingUtilities;
-import View.MainFrame;
+import main.java.View.MainFrame;
 
-import ServerController.Observer;
+import main.java.ServerController.Observer;
 
 public class Main {
 	public static void main(String[] args) {

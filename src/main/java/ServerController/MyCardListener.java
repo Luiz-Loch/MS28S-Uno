@@ -1,4 +1,4 @@
-package ServerController;
+package main.java.ServerController;
 /*
 Code created by Josh Braza 
 */
@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import View.UNOCard;
+import main.java.View.UNOCard;
 
 public class MyCardListener extends MouseAdapter {
 	

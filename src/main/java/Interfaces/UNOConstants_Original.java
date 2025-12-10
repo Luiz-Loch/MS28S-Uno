@@ -1,4 +1,4 @@
-package Interfaces;
+package main.java.Interfaces;
 import java.awt.Color;
 /*
 Code created by Josh Braza 

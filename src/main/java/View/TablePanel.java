@@ -1,4 +1,4 @@
-package View;
+package main.java.View;
 /*
 Code created by Josh Braza 
 */
@@ -11,8 +11,8 @@ import java.awt.Insets;
 
 import javax.swing.JPanel;
 
-import CardModel.WildCard;
-import Interfaces.GameConstants;
+import main.java.CardModel.WildCard;
+import main.java.Interfaces.GameConstants;
 
 @SuppressWarnings("serial")
 public class TablePanel extends JPanel implements GameConstants {

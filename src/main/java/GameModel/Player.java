@@ -1,18 +1,18 @@
-package GameModel;
+package main.java.GameModel;
 /*
 Code created by Josh Braza 
 */
 import java.util.LinkedList;
 import java.util.List;
 
-import View.UNOCard;
+import main.java.View.UNOCard;
 
 public class Player {
 	
 	private String name = null;
-	private boolean isMyTurn = false;
+	protected boolean isMyTurn = false;
 	private boolean saidUNO = false;
-	private List<UNOCard> myCards;
+    protected List<UNOCard> myCards;
 	
 	private int playedCards = 0;
 	
@@ -32,6 +32,7 @@ public class Player {
 	public String getName(){
 		return this.name;
 	}
+
 	public void obtainCard(UNOCard card){
 		card.setShowValue(isMyTurn);
 		myCards.add(card);
