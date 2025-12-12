@@ -35,6 +35,7 @@ Repositório com uma implementação do jogo de cartas *Uno*, originalmente cria
 ### Evolução
 - **Refatoração de código** — melhorias de estrutura e organização do código para facilitar manutenção e extensão (renomeação de classes, extração de métodos, organização de pacotes).
 - **Melhorias nas mensagens/UX do console/GUI** — pequenas melhorias na legibilidade e clareza das mensagens exibidas ao jogador.
+- **Migração para Gradle** — o projeto agora utiliza Gradle como sistema de build, com estrutura padronizada, dependências gerenciadas e execução facilitada por tasks (`./gradlew run`, `java(buildArtifact): MS28S-UNO` no VS Code).
 
 ### Correção
 - **Bugfixes variados** — correções de bugs detectados em regras de turno, verificação de vitória e comportamento de cartas especiais (por exemplo: correções relacionadas à atualização do estado após efeitos de cartas).
